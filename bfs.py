@@ -1,4 +1,5 @@
 from big_map import hc_map
+import time
 import math
 
 def bfs(start, dest, speed):
@@ -70,10 +71,18 @@ def getPath(start_pos, end_pos, speed):
             return None
         else:
             long_path = [mosh[1]]
+            a = len(long_path[0])
             final_path = []
             i = 0
             while i < len(long_path[0]):
                 if i % speed == 0 or i == 0 or i == (len(long_path[0]) - 1):
                     final_path.append(long_path[0][i])
                 i += 1
-            return final_path
+            return a
+            #return final_path
+
+start = {"x": 48, "y": 6}
+goal = {"x": 66, "y": 20}
+start_time = time.time()
+print(getPath(start, goal, 5))
+print("BFS: ", time.time() - start_time)

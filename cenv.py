@@ -8,7 +8,7 @@ from tensorforce.agents import Agent
 from tensorforce.environments import Environment
 from tensorforce.execution import Runner
 
-from tsim import gameSim
+from sim import gameSim
 
 class CustomEnvironment(Environment):
     gsim = gameSim()
@@ -19,8 +19,15 @@ class CustomEnvironment(Environment):
         return dict(type='float', shape=(10,))
 
     def actions(self):
-        return {"hit": dict(type="float", min_value=0.0, max_value=1.0),
-                 "stay": dict(type="float", min_value=0.0, max_value=1.0)}
+        return {"id_1": dict(type="int", min_value=0, max_value=9),
+                 "id_2": dict(type="int", min_value=0, max_value=9),
+                 "id_3": dict(type="int", min_value=0, max_value=9),
+                 "id_4": dict(type="int", min_value=0, max_value=9),
+                 "id_5": dict(type="int", min_value=0, max_value=9),
+                 "id_6": dict(type="int", min_value=0, max_value=9),
+                 "id_7": dict(type="int", min_value=0, max_value=9),
+                 "id_8": dict(type="int", min_value=0, max_value=9),
+                 }
 
     # Optional, should only be defined if environment has a natural maximum
     # episode length
@@ -36,13 +43,5 @@ class CustomEnvironment(Environment):
         return self.gsim.state()
 
     def execute(self, actions):
-        terminal = False
-        if actions['hit'] < actions['stay']:
-            self.gsim.run_dealer()
-            terminal=True
-        else:
-            self.gsim.hit(True)
-            if self.gsim.bust(True):
-                terminal = True
-        reward = self.gsim.reward()
+        
         return self.gsim.state(), terminal, reward
