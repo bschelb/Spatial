@@ -17,203 +17,230 @@ class gameSim():
         self.reward = 0
         self.path = []
         self.eventActives = []
-        # Resources
-        # [[Coordinates], [Speed], [ID], [Destination Event], Checked]
-        self.resourceID_a = [[self.homeBase], [10], [1], [0], False]
-        self.resourceID_b = [[self.homeBase], [10], [2], [0], False]
-        self.resourceID_c = [[self.homeBase], [15], [3], [0], False]
-        self.resourceID_d = [[self.homeBase], [10], [4], [0], False]
-        self.resourceID_e = [[self.homeBase], [5], [5], [0], False]
-        self.resourceID_f = [[self.homeBase], [20], [6], [0], False]
-        self.resourceID_g = [[self.homeBase], [15], [7], [0], False]
-        self.resourceID_h = [[self.homeBase], [15], [8], [0], False]
-        self.resourceID_i = [[self.homeBase], [10], [9], [0], False]
-        # Events
-        # [[Coordinates], [Required Resources], [Time Start & Finish], Active, [ID]]
-        self.eventID_a = [eventCoordinates[0], [1], [1, 411], True, [1]]
-        self.eventID_b = [eventCoordinates[1], [2, 6, 9], [41, 441], False, [2]]
-        self.eventID_c = [eventCoordinates[2], [3], [126, 526], False, [3]]
-        self.eventID_d = [eventCoordinates[3], [6], [156, 556], False, [4]]
-        self.eventID_e = [eventCoordinates[4], [9], [226, 626], False, [5]]
-        self.eventID_f = [eventCoordinates[5], [5, 1, 4, 7], [256, 656], False, [6]]
-        self.eventID_g = [eventCoordinates[6], [1, 4, 7, 2], [329, 729], False, [7]]
-        self.eventID_h = [eventCoordinates[7], [1, 4, 7, 6], [359, 759], False, [8]]
+        self.gameState = {
+            "Resources": {
+                "resourceID_a": {
+                    "Location": self.homeBase,
+                    "Speed": 10,
+                    "ID": 1,
+                    "Destination": 0,
+                    "Checked": False,
+                },
+                "resourceID_b": {
+                    "Location": self.homeBase,
+                    "Speed": 10,
+                    "ID": 2,
+                    "Destination": 0,
+                    "Checked": False,
+                },
+                "resourceID_c": {
+                    "Location": self.homeBase,
+                    "Speed": 15,
+                    "ID": 3,
+                    "Destination": 0,
+                    "Checked": False,
+                },
+                "resourceID_d": {
+                    "Location": self.homeBase,
+                    "Speed": 10,
+                    "ID": 4,
+                    "Destination": 0,
+                    "Checked": False,
+                },
+                "resourceID_e": {
+                    "Location": self.homeBase,
+                    "Speed": 5,
+                    "ID": 5,
+                    "Destination": 0,
+                    "Checked": False,
+                },
+                "resourceID_f": {
+                    "Location": self.homeBase,
+                    "Speed": 20,
+                    "ID": 6,
+                    "Destination": 0,
+                    "Checked": False,
+                },
+                "resourceID_g": {
+                    "Location": self.homeBase,
+                    "Speed": 15,
+                    "ID": 7,
+                    "Destination": 0,
+                    "Checked": False,
+                },
+                "resourceID_h": {
+                    "Location": self.homeBase,
+                    "Speed": 15,
+                    "ID": 8,
+                    "Destination": 0,
+                    "Checked": False,
+                },
+                "resourceID_i": {
+                    "Location": self.homeBase,
+                    "Speed": 10,
+                    "ID": 9,
+                    "Destination": 0,
+                    "Checked": False,
+                }
+            },
+            "Events": {
+                "eventID_a": {
+                    "Location": eventCoordinates[0],
+                    "Ordered": False,
+                    "Resources": [1],
+                    "Start": 1,
+                    "Finish": 411,
+                    "Active": True,
+                    "ID": 1,
+                },
+                "eventID_b": {
+                    "Location": eventCoordinates[1],
+                    "Ordered": True,
+                    "Resources": [2,6,9],
+                    "Start": 41,
+                    "Finish": 441,
+                    "Active": False,
+                    "ID": 2,
+                },
+                "eventID_c": {
+                    "Location": eventCoordinates[2],
+                    "Ordered": False,
+                    "Resources": [3],
+                    "Start": 126,
+                    "Finish": 526,
+                    "Active": False,
+                    "ID": 3,
+                },
+                "eventID_d": {
+                    "Location": eventCoordinates[3],
+                    "Ordered": False,
+                    "Resources": [6],
+                    "Start": 156,
+                    "Finish": 556,
+                    "Active": False,
+                    "ID": 4,
+                },
+                "eventID_e": {
+                    "Location": eventCoordinates[4],
+                    "Ordered": False,
+                    "Resources": [9],
+                    "Start": 226,
+                    "Finish": 626,
+                    "Active": False,
+                    "ID": 5,
+                },
+                "eventID_f": {
+                    "Location": eventCoordinates[5],
+                    "Ordered": False,
+                    "Resources": [5, 1, 4, 7],
+                    "Start": 256,
+                    "Finish": 656,
+                    "Active": False,
+                    "ID": 6,
+                },
+                "eventID_g": {
+                    "Location": eventCoordinates[6],
+                    "Ordered": False,
+                    "Resources": [1, 4, 7, 2],
+                    "Start": 329,
+                    "Finish": 729,
+                    "Active": False,
+                    "ID": 7,
+                },
+                "eventID_h": {
+                    "Location": eventCoordinates[7],
+                    "Ordered": False,
+                    "Resources": [5, 1, 4, 7],
+                    "Start": 359,
+                    "Finish": 759,
+                    "Active": False,
+                    "ID": 8,
+                },
+            }
+        }
 
     def getState(self, resource):
         state = []
-        if self.eventID_a[3] == True:
-            state.append(self.getDistanceToEvent(resource, self.eventID_a)[1])
-        elif all([x == True for x in self.eventID_a[1]]):
-            state.append(-2)
-        else:
-            state.append(-1)
-
-        if self.eventID_b[3] == True:
-            state.append(self.getDistanceToEvent(resource, self.eventID_b)[1])
-        elif all([x == True for x in self.eventID_b[1]]):
-            state.append(-2)
-        else:
-            state.append(-1)
-
-        if self.eventID_c[3] == True:
-            state.append(self.getDistanceToEvent(resource, self.eventID_c)[1])
-        elif all([x == True for x in self.eventID_c[1]]):
-            state.append(-2)
-        else:
-            state.append(-1)
-
-        if self.eventID_d[3] == True:
-            state.append(self.getDistanceToEvent(resource, self.eventID_d)[1])
-        elif all([x == True for x in self.eventID_d[1]]):
-            state.append(-2)
-        else:
-            state.append(-1)
-
-        if self.eventID_e[3] == True:
-            state.append(self.getDistanceToEvent(resource, self.eventID_e)[1])
-        elif all([x == True for x in self.eventID_e[1]]):
-            state.append(-2)
-        else:
-            state.append(-1)
-
-        if self.eventID_f[3] == True:
-            state.append(self.getDistanceToEvent(resource, self.eventID_f)[1])
-        elif all([x == True for x in self.eventID_f[1]]):
-            state.append(-2)
-        else:
-            state.append(-1)
-
-        if self.eventID_g[3] == True:
-            state.append(self.getDistanceToEvent(resource, self.eventID_g)[1])
-        elif all([x == True for x in self.eventID_g[1]]):
-            state.append(-2)
-        else:
-            state.append(-1)
-
-        if self.eventID_h[3] == True:
-            state.append(self.getDistanceToEvent(resource, self.eventID_h)[1])
-        elif all([x == True for x in self.eventID_h[1]]):
-            state.append(-2)
-        else:
-            state.append(-1)
-        
+        for key in self.gameState["Resources"]:
+            if self.gameState["Resources"][key]["ID"] == resource:
+                resource = key
+        for key in self.gameState["Events"]:
+            if self.gameState["Events"][key]["Active"] == True:
+                state.append(self.getDistanceToEvent(resource, key)[1])
+            elif all([x == True for x in self.gameState["Events"][key]["Resources"]]):
+                state.append(-2)
+            else:
+                state.append(-1)
         return state
 
     def updateEventsActivity(self):
-        if self.eventID_a[2][1] < self.time:
-            self.eventID_a[3] = False
-
-        if self.eventID_b[2][0] < self.time:
-            if all([x == True for x in self.eventID_b[1]]):
-                self.eventID_b[3] = False
-            else:
-                self.eventID_b[3] = True
-                new = True
-        elif self.eventID_b[2][1] < self.time:
-            self.eventID_b[3] = False
-        
-        if self.eventID_c[2][0] < self.time:
-            if all([x == True for x in self.eventID_c[1]]):
-                self.eventID_c[3] = False
-            else:
-                self.eventID_c[3] = True
-                new = True
-        elif self.eventID_c[2][1] < self.time:
-            self.eventID_c[3] = False
-        
-        if self.eventID_d[2][0] < self.time:
-            if all([x == True for x in self.eventID_d[1]]):
-                self.eventID_d[3] = False
-            else:
-                self.eventID_d[3] = True
-                new = True
-        elif self.eventID_d[2][1] < self.time:
-            self.eventID_d[3] = False
-        
-        if self.eventID_e[2][0] < self.time:
-            if all([x == True for x in self.eventID_e[1]]):
-                self.eventID_e[3] = False
-            else:
-                self.eventID_e[3] = True
-                new = True
-        elif self.eventID_e[2][1] < self.time:
-            self.eventID_e[3] = False
-        
-        if self.eventID_f[2][0] < self.time:
-            if all([x == True for x in self.eventID_f[1]]):
-                self.eventID_f[3] = False
-            else:
-                self.eventID_f[3] = True
-                new = True
-        elif self.eventID_f[2][1] < self.time:
-            self.eventID_f[3] = False
-        
-        if self.eventID_g[2][0] < self.time:
-            if all([x == True for x in self.eventID_g[1]]):
-                self.eventID_g[3] = False
-            else:
-                self.eventID_g[3] = True
-                new = True
-        elif self.eventID_g[2][1] < self.time:
-            self.eventID_g[3] = False
-        
-        if self.eventID_h[2][0] < self.time:
-            if all([x == True for x in self.eventID_h[1]]):
-                self.eventID_h[3] = False
-            else:
-                self.eventID_h[3] = True
-                new = True
-        elif self.eventID_h[2][1] < self.time:
-            self.eventID_h[3] = False
-        return new
+        newEvent = False
+        for key in self.gameState["Events"]:
+            if self.gameState["Events"][key]["Start"] < self.time:
+                self.gameState["Events"][key]["Active"] = True
+                newEvent = True
+            
+            if all([x == True for x in self.gameState["Events"][key]["Resources"]]):
+                self.gameState["Events"][key]["Active"] = False
+            elif self.gameState["Events"][key]["Resources"] < self.time:
+                self.gameState["Events"][key]["Active"] = False
+        return newEvent
 
     def getDistanceToEvent(self, resource, event):
-        self.path = self.getPathList(resource, event)
+        self.getPathList(resource, event)
         distance = len(self.path)
-        if resource[2] in event[1]:
+        if self.gameState["Resources"][resource]["Destination"] in self.gameState["Events"][event]["Resources"]:
             self.reward += 1
-        if distance == 1 and all([x == True for x in event[1]]):
+        if distance == 1 and all([x == True for x in self.gameState["Events"][event]["Resources"]]):
             None
-        elif (distance == 1):
-            for requirement in event[1]:
-                if requirement == resource[2]:
+        elif (distance == 1) and (self.gameState["Resources"][resource]["Destination"] != 10):
+            for requirement in self.gameState["Events"][event]["Resources"]:
+                if requirement == self.gameState["Resources"][resource]["ID"]:
                     requirement = True
             self.goToHomeBase(resource)
-            resource[3] == 0
+            self.gameState["Resources"][resource]["Destination"] = 10
+        elif distance == 1 and self.gameState["Resources"][resource]["Destination"] != 10:
+            None
+        self.gameState["Resources"][resource]["Destination"] = self.gameState["Events"][event]["ID"]
+        self.gameState["Resources"][resource]["Checked"] = True
         return self.path, distance
 
     def goToHomeBase(self, resource):
-        self.path = self.getPathList(resource, self.homeBase)
-        return self.path
+        self.getPathList(resource, self.homeBase)
 
     def moveResource(self, resource):
-        self.path.pop(0)
-        resource[0] = self.path[0]
+        if self.getDistance(resource) >= 2:
+            self.path.pop(0)
+            self.gameState["Resources"][resource]["Location"] = self.path[0]
+        else:
+            None
 
     def getPathList(self, resource, event):
-        self.path = getPath(resource[0], event[0], resource[1])
-        return self.path
+        self.path = getPath(self.gameState["Resources"][resource]["Location"], 
+                            self.gameState["Events"][event]["Location"], 
+                            self.gameState["Resources"][resource]["Speed"])
+
+    def getDistance(self, resource):
+        destination = None
+        for key in self.gameState["Events"]:
+            if self.gameState["Resources"][resource]["Destination"] == self.gameState["Events"][key]["ID"]:
+                destination = self.gameState["Events"][key]["Location"]
+            else:
+                destination = self.homeBase
+        distance = getPath(self.gameState["Resources"][resource]["Location"], 
+                            destination, 
+                            self.gameState["Resources"][resource]["Speed"])
+        distance = len(distance)
+        return distance
 
     def isHome(self, resource):
-        if resource == 1:
-            resource = self.resourceID_a
-        elif resource == 2:
-            resource = self.resourceID_b
-        elif resource == 3:
-            resource = self.resourceID_c
-        elif resource == 4:
-            resource = self.resourceID_d
-        elif resource == 5:
-            resource = self.resourceID_e
-        elif resource == 6:
-            resource = self.resourceID_f
-        elif resource == 7:
-            resource = self.resourceID_g
-        elif resource == 8:
-            resource = self.resourceID_h
-        else:
-            resource = self.resourceID_i
-        if resource[0] == self.homeBase and self.updateEventsActivity():
+        for key in self.gameState["Resources"]:
+            if self.gameState["Resources"][key]["ID"] == resource:
+                resource = key
+        if self.gameState["Resources"][resource]["Destination"] == 10:
+            if self.getDistanceHome(resource) == 1:
+                return True
+        if self.gameState["Resources"][resource]["Location"] == self.homeBase and self.updateEventsActivity():
             return True
         else:
             return False
@@ -227,56 +254,24 @@ class gameSim():
     def timeLapse(self):
         self.time += 5
 
+    def resetReward(self):
+        self.reward = 0
+
     def updateGameAction(self, action, resource):
         self.updateEventsActivity()
-        if resource == 1:
-            resource = self.resourceID_a
-            resource[4] = True
-        elif resource == 2:
-            resource = self.resourceID_b
-            resource[4] = True
-        elif resource == 3:
-            resource = self.resourceID_c
-            resource[4] = True
-        elif resource == 4:
-            resource = self.resourceID_d
-            resource[4] = True
-        elif resource == 5:
-            resource = self.resourceID_e
-            resource[4] = True
-        elif resource == 6:
-            resource = self.resourceID_f
-            resource[4] = True
-        elif resource == 7:
-            resource = self.resourceID_g
-            resource[4] = True
-        elif resource == 8:
-            resource = self.resourceID_h
-            resource[4] = True
-        else:
-            resource = self.resourceID_i
-            resource[4] = True
+        for key in self.gameState["Resources"]:
+            if self.gameState["Resources"][key]["ID"] == resource:
+                resource = key
+        self.gameState["Resources"][resource]["Checked"] = True
         max_value = max(action.items(), key=operator.itemgetter(1))[1]
+        event = None
         for item in action.items():
             if item[1] == max_value:
                 event = item[0]
-        resource[3] = event
-        if event == 1:
-            event = self.eventID_a
-        elif event == 2:
-            event = self.eventID_b
-        elif event == 3:
-            event = self.eventID_c
-        elif event == 4:
-            event = self.eventID_d
-        elif event == 5:
-            event = self.eventID_e
-        elif event == 6:
-            event = self.eventID_f
-        elif event == 7:
-            event = self.eventID_g
-        else:
-            event = self.eventID_h
+        for key in self.gameState["Events"]:
+            if self.gameState["Events"][key]["ID"] == event:
+                event = key
+        self.gameState["Resources"][resource]["Destination"] = self.gameState["Events"][event]["ID"]
         self.getDistanceToEvent(resource, event)
         self.moveResource(resource)
         self.timeLapse()
@@ -284,46 +279,18 @@ class gameSim():
     
     def updateGameNoAction(self, resource):
         self.updateEventsActivity()
-        if resource == 1:
-            resource = self.resourceID_a
-        elif resource == 2:
-            resource = self.resourceID_b
-        elif resource == 3:
-            resource = self.resourceID_c
-        elif resource == 4:
-            resource = self.resourceID_d
-        elif resource == 5:
-            resource = self.resourceID_e
-        elif resource == 6:
-            resource = self.resourceID_f
-        elif resource == 7:
-            resource = self.resourceID_g
-        elif resource == 8:
-            resource = self.resourceID_h
-        else:
-            resource = self.resourceID_i
-        if resource[3] == 0:
+        event = None
+        for key in self.gameState["Resources"]:
+            if self.gameState["Resources"][key]["ID"] == resource:
+                resource = key
+        for key in self.gameState["Events"]:
+            if self.gameState["Events"][key]["ID"] == self.gameState["Resoruces"][resource]["Destination"]:
+                event = key
+        if self.gameState["Resources"][resource]["Destination"] == 10:
             self.goToHomeBase(resource)
             self.moveResource(resource)
             self.timeLapse()
-            noGoEvent = True
-        elif resource[3] == 1:
-            event = self.eventID_a
-        elif resource[3] == 2:
-            event = self.eventID_b
-        elif resource[3] == 3:
-            event = self.eventID_c
-        elif resource[3] == 4:
-            event = self.eventID_d
-        elif resource[3] == 5:
-            event = self.eventID_e
-        elif resource[3] == 6:
-            event = self.eventID_f
-        elif resource[3] == 7:
-            event = self.eventID_g
         else:
-            event = self.eventID_h
-        if noGoEvent == False:
             self.getDistanceToEvent(resource, event)
             self.moveResource(resource)
             self.timeLapse()
