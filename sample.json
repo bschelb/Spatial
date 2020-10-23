@@ -1,0 +1,390 @@
+{
+    "test": {
+      "briefings": "test",
+      "time": 0,
+      "session": 900,
+      "players": {
+        "A": {
+          "role": "police",
+          "resources": {
+            "0": "id_1",
+            "1": "id_2",
+            "2": "id_3"
+          },
+          "location": {
+            "x": 48,
+            "y": 6
+          },
+          "color": "blue",
+          "matrix_id": 100
+        },
+        "B": {
+          "role": "fire",
+          "resources": {
+            "0": "id_4",
+            "1": "id_5",
+            "2": "id_6"
+          },
+          "location": {
+            "x": 360,
+            "y": 134
+          }, 
+          "color": "teal",
+          "matrix_id": 200
+        },
+        "C": {
+          "role": "hazmat",
+          "resources": {
+            "0": "id_7",
+            "1": "id_8",
+            "2": "id_9"
+          },
+          "location": {
+            "x": 44,
+            "y": 376
+          }, 
+          "color": "purple",
+          "matrix_id": 300
+        }
+      },
+      "resources": {
+        "id_1": {
+          "type": "investigator",
+          "location": {
+            "x": 86,
+            "y": 8
+          },
+          "destination": {
+            "x": 0,
+            "y": 0
+          },
+          "home": {
+            "x": 86,
+            "y":8
+          },
+          "speed": 10,
+          "icon": "detective"
+        },
+        "id_2": {
+          "type": "squad-car",
+          "location": {
+            "x": 52,
+            "y": 8
+          },
+          "destination": {
+            "x": 0,
+            "y": 0
+          },
+          "home": {
+            "x": 52,
+            "y": 8
+          },
+          "speed": 10,
+          "icon": "car"
+        },
+        "id_3": {
+          "type": "swat",
+          "location": {
+            "x": 24,
+            "y": 8
+          },
+          "destination": {
+            "x": 0,
+            "y": 0
+          },
+          "home": {
+            "x": 24,
+            "y": 8
+          },
+          "speed": 15,
+          "icon": "swat-van"
+        },
+        "id_4": {
+          "type": "investigator",
+          "location": {
+            "x": 306,
+            "y": 115
+          },
+          "destination": {
+            "x": 0,
+            "y": 0
+          },
+          "home": {
+            "x": 306,
+            "y": 115
+          },
+          "speed": 10,
+          "icon": "detective"
+        },
+        "id_5": {
+          "type": "ambulance",
+          "location": {
+            "x": 306,
+            "y": 146
+          },
+          "destination": {
+            "x": 0,
+            "y": 0
+          },
+          "home": {
+            "x": 306,
+            "y": 146
+          },
+          "speed": 5,
+          "icon": "healthcare-and-medical"
+        },
+        "id_6": {
+          "type": "fire-truck",
+          "location": {
+            "x": 306,
+            "y": 170
+          },
+          "destination": {
+            "x": 0,
+            "y": 0
+          },
+          "home": {
+            "x": 306,
+            "y": 170
+          },
+          "speed": 20, 
+          "icon": "fire-truck"
+        },
+        "id_7": {
+          "type": "investigator",
+          "location": {
+            "x": 12,
+            "y": 376
+          },
+          "destination": {
+            "x": 0,
+            "y": 0
+          },
+          "home": {
+            "x": 12,
+            "y": 376
+          },
+          "speed": 15,
+          "icon": "detective"
+        },
+        "id_8": {
+          "type": "bomb-squad",
+          "location": {
+            "x": 40,
+            "y": 376
+          },
+          "destination": {
+            "x": 0,
+            "y": 0
+          },
+          "home": {
+            "x": 40,
+            "y": 376
+          },
+          "speed": 15,
+          "icon": "bomb-squad"
+        },
+        "id_9": {
+          "type": "chemical-truck",
+          "location": {
+            "x": 66,
+            "y": 376
+          },
+          "destination": {
+            "x": 0,
+            "y": 0
+          },
+          "home": {
+            "x": 66,
+            "y": 376
+          },
+          "speed": 10,
+          "icon": "chemical-truck"
+        }
+      },
+      "events": {
+        "id_a": {
+          "name": "Football Weekend Briefing",
+          "status": "inactive",
+          "requirements": {
+            "investigator": false
+          },
+          "description": "Unit(s) needed to deliver a talk for the upcoming football weekend on how to identify potential bombs and bomb-making materials.",
+          "successMessage": "Everyone is prepared and ready for the football weekend festivities!",
+          "failureMessage": "Not enough units showed up to the briefing, you wasted everyone's time.",
+          "length": 400,
+          "start": 11,
+          "limit": 411,
+          "difficulty": 2,
+          "end": 0,
+          "location": {
+            "x": 66,
+            "y": 124
+          },
+          "icon": "football"
+        },
+        "id_b": {
+          "name": "Tanker Collision",
+          "status": "inactive",
+          "requirements": {
+            "squad-car": false,
+            "fire-truck": false,
+            "chemical-truck": false
+          },
+          "description": "A tanker carrying aqueous ammonia has collided with a large truck. The driver thinks the tanker may explode within 60 minutes. Units are needed in the following order: FIRST to clear the area of on-lookers, SECOND to control the flames, and THIRD to cleanup the chemical material.",
+          "successMessage": "The spilled chemicals from the tanker were cleaned up!",
+          "failureMessage": "The chemicals have sunk into the water table, which cause a massive, expensive clean-up!",
+          "length": 2, 
+          "start": 41,
+          "limit": 441,
+          "difficulty": 3, 
+          "end": 0,
+          "location": {
+            "x": 34,
+            "y": 214
+          },
+          "icon": "collision"
+        },
+        "id_c": {
+          "name": "Escort a Senator",
+          "status": "inactive",
+          "requirements": {
+            "swat": false
+          },
+          "description": "Pennsylvania Senator Bob Casey is in town for the football game. Unit[s] requested to escort him to a luncheon being held in his honor.",
+          "successMessage": "Thank you for providing security for the senator-we all feel much safer now.",
+          "failureMessage": "No one showed up to escort the senator.",
+          "length": 2, 
+          "start": 126,
+          "limit": 526,
+          "difficulty": 1, 
+          "end": 0,
+          "location": {
+            "x": 151,
+            "y": 160
+          },
+          "icon": "senator"
+        },
+        "id_d": {
+          "name": "Smoking Kills",
+          "status": "inactive",
+          "requirements": {
+            "fire-truck": false
+          },
+          "description": "Caller reports falling asleep with a lit cigarette has led to a fire in his apartment. Resident is unable to contain the fire in the room and needs assistance.",
+          "successMessage": "The fire has been put out successfully before it could spread to the rest of the house.",
+          "failureMessage": "Unfortunately the fire has spread, destroying the entire residence.",
+          "length": 2, 
+          "start": 156,
+          "limit": 556,
+          "difficulty": 2, 
+          "end": 0,
+          "location": {
+            "x": 402,
+            "y": 206
+          },
+          "icon": "fire-alarm"
+        },
+        "id_e": {
+          "name": "Field Chemical Removal",
+          "status": "inactive",
+          "requirements": {
+            "chemical-truck": false
+          },
+          "description": "Director requests disposal of a large number of barrels containing expired lawn treatment chemicals found in the basement of Beaver Stadium. Some containers may be volatile. Units are advised to proceed with caution.",
+          "successMessage": "The chemicals were successfully removed from the stadium.",
+          "failureMessage": "A few of the barrels leaked their chemicals into the ground water preventing the use of university drinking fountains for a week",
+          "length": 2, 
+          "start": 226,
+          "limit": 626,
+          "difficulty": 3, 
+          "end": 0,
+          "location": {
+            "x": 186,
+            "y": 314
+          },
+          "icon": "chemical-spill"
+        },
+        "id_f": {
+          "name": "Luncheon Nausea",
+          "status": "inactive",
+          "requirements": {
+            "ambulance": false,
+            "investigator": false
+          },
+          "description": "People at the senator's luncheon report feeling nauseous. Units requested for the treatment of multiple victims and to collect and test samples of the food.",
+          "successMessage": "The Senator and his staff are recovering at the hospital.",
+          "failureMessage": "A deadly strain of bacteria has spread to cafeterias across campus, and numerous people are becoming sicker and sicker.",
+          "length": 2, 
+          "start": 256,
+          "limit": 656,
+          "difficulty": 2, 
+          "end": 0,
+          "location": {
+            "x": 16,
+            "y": 155
+          },
+          "icon": "nausea"
+        },
+        "id_g": {
+          "name": "Possible Student Rave",
+          "status": "inactive",
+          "requirements": {
+            "investigator": false,
+            "squad-car": false
+          },
+          "description": "Private citizen reports 'very loud music' coming from West Halls dormitory. Party involving underage drinking is a possibility. Units needed to investigate the situation and make possible arrests.",
+          "successMessage": "The students have been dispersed from the party.",
+          "failureMessage": "The students have run amok and completely trashed the building.",
+          "length": 2, 
+          "start": 329,
+          "limit": 729,
+          "difficulty": 2, 
+          "end": 0,
+          "location": {
+            "x": 172,
+            "y": 125
+          },
+          "icon": "rave"
+        },
+        "id_h": {
+          "name": "Old Main Frame Shoppe Fire",
+          "status": "inactive",
+          "requirements": {
+            "investigator": false,
+            "fire-truck": false
+          },
+          "description": "Employees report that an apartment has caught fire and spread to nearby store below. Units needed to suppress fire and evaluate the building's sprinkler system.",
+          "successMessage": "The students have been dispersed from the party.",
+          "failureMessage": "The students have run amok and completely trashed the building.",
+          "length": 2, 
+          "start": 359,
+          "limit": 759,
+          "difficulty": 2, 
+          "end": 0,
+          "location": {
+            "x": 168,
+            "y": 286
+          },
+          "icon": "apartment-fire"
+        }
+      },
+      "chat": {
+        "0": {
+          "author": "A",
+          "text": "Hey",
+          "timestamp": 40
+        },
+        "1": {
+          "author": "B",
+          "text": "It's go time",
+          "timestamp": 45
+        },
+        "2": {
+          "author": "C",
+          "text": "No more",
+          "timestamp": 60
+        }
+      }
+    }
+  }

@@ -66,23 +66,20 @@ def reconstructPath(start_pos, end_pos, prev):
 # Y IS COLUMN HEADER
 def getPath(start_pos, end_pos, speed):
         mosh = bfs(start_pos, end_pos, speed)
-        #print(mosh)
         if type(mosh) == bool:
             return None
         else:
             long_path = [mosh[1]]
-            a = len(long_path[0])
             final_path = []
             i = 0
             while i < len(long_path[0]):
                 if i % speed == 0 or i == 0 or i == (len(long_path[0]) - 1):
                     final_path.append(long_path[0][i])
                 i += 1
-            return a
-            #return final_path
+            return final_path
 
-start = {"x": 48, "y": 6}
-goal = {"x": 66, "y": 20}
-start_time = time.time()
-print(getPath(start, goal, 5))
-print("BFS: ", time.time() - start_time)
+# start = {"x": 48, "y": 6}
+# goal = {"x": 66, "y": 20}
+# start_time = time.time()
+# print(getPath(start, goal, 5))
+# print("BFS: ", time.time() - start_time)

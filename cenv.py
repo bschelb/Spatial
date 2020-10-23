@@ -11,23 +11,24 @@ from tensorforce.execution import Runner
 from sim import gameSim
 
 class CustomEnvironment(Environment):
-    gsim = gameSim()
     def __init__(self):
         super().__init__()
+        self.resourceNum = 1
     
     def states(self):
         return dict(type='float', shape=(10,))
 
+    # Events
     def actions(self):
-        return {"id_1": dict(type="int", min_value=0, max_value=9),
-                 "id_2": dict(type="int", min_value=0, max_value=9),
-                 "id_3": dict(type="int", min_value=0, max_value=9),
-                 "id_4": dict(type="int", min_value=0, max_value=9),
-                 "id_5": dict(type="int", min_value=0, max_value=9),
-                 "id_6": dict(type="int", min_value=0, max_value=9),
-                 "id_7": dict(type="int", min_value=0, max_value=9),
-                 "id_8": dict(type="int", min_value=0, max_value=9),
-                 }
+        return {"1": dict(type="float", min_value=0, max_value=1),
+                "2": dict(type="float", min_value=0, max_value=1),
+                "3": dict(type="float", min_value=0, max_value=1),
+                "4": dict(type="float", min_value=0, max_value=1),
+                "5": dict(type="float", min_value=0, max_value=1),
+                "6": dict(type="float", min_value=0, max_value=1),
+                "7": dict(type="float", min_value=0, max_value=1),
+                "8": dict(type="float", min_value=0, max_value=1),
+                }
 
     # Optional, should only be defined if environment has a natural maximum
     # episode length
@@ -39,9 +40,17 @@ class CustomEnvironment(Environment):
         super().close()
 
     def reset(self):
-        self.gsim.new_hand()
-        return self.gsim.state()
-
-    def execute(self, actions):
+        gsim = gameSim()
+        return self.gsim.getState()
         
-        return self.gsim.state(), terminal, reward
+    def execute(self, actions):
+        if self.gsim.isHome(self.resourceNum):
+            reward = self.gsim.updateGameAction(self.resourceNum)
+        else:
+            reward = self.gsim.updateGameNoAction(self.resourceNum)
+        terminal = self.gsim.isGameOver()
+        if self.resourceNum == 9:
+            self.resourceNum = 1
+        else:
+            self.resourceNum += 1
+        return self.gsim.getState(), terminal, reward
