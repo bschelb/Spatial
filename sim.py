@@ -1,10 +1,10 @@
-# import tensorflow
-# import tensorforce
-# from tensorforce.agents import PPOAgent, DQNAgent
+import tensorflow
+import tensorforce
+from tensorforce.agents import PPOAgent, DQNAgent
 from big_map import getOpenSpaces
 from bfs import getPath
 import operator
-# import numpy as np
+import numpy as np
 import random
 
 class gameSim():

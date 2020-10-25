@@ -26,7 +26,7 @@ from tensorforce import Runner
 
 # Create an OpenAI-Gym environment
 environment = Environment.create(
-    environment='cenv.CustomEnvironment', max_episode_timesteps=10
+    environment='cenv.CustomEnvironment', max_episode_timesteps=300
 )
 
 # Create a PPO agent
@@ -52,9 +52,6 @@ agent = Agent.create(
     # Default additional config values
     config=None,
     parallel_interactions=1,
-    # Save agent every 10 updates and keep the 5 most recent checkpoints
-    saver=dict(directory='model', frequency=10, max_checkpoints=5),
-    # Log all available Tensorboard summaries
     summarizer=dict(directory='summaries', summaries='all'),
     # Do not record agent-environment interaction trace
     recorder=None
@@ -66,27 +63,28 @@ runner = Runner(agent=agent, environment=environment)
 # Start the runner
 runner.run(num_episodes=10000)
 runner.close()
+environment.close()
 agent.save(directory='.', format='numpy', append='episodes')
 exit()
 
 
-gsim = gameSim()
-for i in range(50):
-    terminal = False
-    while not terminal:
-        print("AI: " + str(gsim.player))
-        print("Dealer: " + str(gsim.dealer))
-        actions = agent.act(gsim.state())
-        print(actions)
-        if actions['hit'] < actions['stay']:
-            gsim.run_dealer()
-            terminal=True
-        else:
-            gsim.hit(True)
-            if gsim.bust(True):
-                terminal = True
-        agent.observe(reward=gsim.reward(), terminal=terminal)
-    print("AI: " + str(gsim.player))
-    print("Dealer: " + str(gsim.dealer))
-    print("================\n=============")
-    gsim.new_hand()
+# gsim = gameSim()
+# for i in range(50):
+#     terminal = False
+#     while not terminal:
+#         print("AI: " + str(gsim.player))
+#         print("Dealer: " + str(gsim.dealer))
+#         actions = agent.act(gsim.state())
+#         print(actions)
+#         if actions['hit'] < actions['stay']:
+#             gsim.run_dealer()
+#             terminal=True
+#         else:
+#             gsim.hit(True)
+#             if gsim.bust(True):
+#                 terminal = True
+#         agent.observe(reward=gsim.reward(), terminal=terminal)
+#     print("AI: " + str(gsim.player))
+#     print("Dealer: " + str(gsim.dealer))
+#     print("================\n=============")
+#     gsim.new_hand()
