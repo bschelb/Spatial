@@ -20,7 +20,7 @@ from tensorforce.agents import Agent
 from tensorforce.environments import Environment
 from tensorforce.execution import Runner
 import cenv
-from tsim import gameSim
+from sim import gameSim
 from tensorforce import Runner
 
 
