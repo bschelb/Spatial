@@ -297,11 +297,3 @@ class gameSim():
             self.timeLapse()
         self.resetReward()
         return self.reward
-
-
-
-
-        
-
-a = gameSim()
-a.getState(a)
