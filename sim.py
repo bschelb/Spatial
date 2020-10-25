@@ -294,6 +294,8 @@ class gameSim():
             self.getDistanceToEvent(resource, event)
             self.moveResource(resource)
             self.timeLapse()
+        self.resetReward()
+        return self.reward
 
 
 

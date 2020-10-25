@@ -41,11 +41,11 @@ class CustomEnvironment(Environment):
 
     def reset(self):
         gsim = gameSim()
-        return self.gsim.getState()
+        return gsim.getState()
         
     def execute(self, actions):
         if self.gsim.isHome(self.resourceNum):
-            reward = self.gsim.updateGameAction(self.resourceNum)
+            reward = self.gsim.updateGameAction(actions)
         else:
             reward = self.gsim.updateGameNoAction(self.resourceNum)
         terminal = self.gsim.isGameOver()
