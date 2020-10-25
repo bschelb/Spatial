@@ -216,6 +216,7 @@ class gameSim():
             None
 
     def getPathList(self, resource, event):
+        print(resource)
         self.path = getPath(self.gameState["Resources"][resource]["Location"], 
                             self.gameState["Events"][event]["Location"], 
                             self.gameState["Resources"][resource]["Speed"])
